@@ -8,7 +8,7 @@
  * Plugin Name:       IP Restricted
  * Plugin URI:        https://github.com/ucsf-ckm/iprestricted
  * Description:       Wrap any block of content in a shortcode and restrict its visibility by IP address.
- * Version:           0.9.0
+ * Version:           0.9.1
  * Author:            Stefan Topfstedt
  * Author URI:        https://github.com/stopfstedt
  * License:           MIT
