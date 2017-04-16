@@ -1,8 +1,7 @@
 # IP Restricted Block
 
-Wrap any block of content in your WordPress posts and pages in a shortcode, 
-and restrict its visibility by matching the client IP addresses against 
-a give white list of IP addresses and/or IP address ranges.
+Wrap any block of content in your WordPress posts and pages in a shortcode to restrict its visibility by matching the 
+client's IP address against specified white- and blacklists of IP addresses.
 
 ## Installation
 
@@ -17,18 +16,25 @@ This plugin does not require any configuration.
 
 Wrap your IP-restricted contents with the `[iprestricted]` shortcode.
 
-Specify which IP addresses are whitelisted via the `whitelist` attribute.
+Specify which IP addresses are whitelisted via the `whitelist` attribute, 
+and which which IP addresses are blacklisted via the `blacklist` attribute.
+
+### Syntax for white- and blacklists
 
 You may specify multiple addresses/ranges as a comma separated list.
 
 Ranges must be provided by declared by their starting and ending IP address, separated by `-`.
 
-If the client's IP address matches any addresses/ranges given in the shortcode,
-then the shortcode's content will be displayed.
+### Restriction rules
 
-If the client's IP address fails to be matched against the whitelist, then the content will not be displayed.
+1. The shortcode's content will be displayed if the client IP matches any IP on the given whitelist.
+2. The shortcode's content will not be displayed if the client IP matches any IP on the given blacklist.
+3. Blacklist matches take precedence ove whitelist matches, in case the client IP matches both.
+4. If neither whitelist or blacklist values are provided, then the content will be displayed.
 
-### Example
+### Examples
+
+#### Whitelisting IPs
 
 ```
 [iprestricted whitelist="172.16.42.31,172.16.42.20,172.16.42.5-172.16.43.11"]
@@ -41,6 +47,41 @@ _Lorem Ipsum_ will only be displayed if the client's IP is:
 - exactly `172.16.42.31`, _-or-_
 - exactly `172.16.42.20`, _-or-_
 - between `172.16.42.5` and `172.16.43.11`
+
+#### Blacklisting IPs
+
+```
+[iprestricted blacklist="172.16.42.5-172.16.43.11"]
+Lorem Ipsum.
+[/iprestricted]
+```
+
+_Lorem Ipsum_ will only be displayed if the client's IP does not fall between `172.16.42.5` and `172.16.43.11`.L
+
+#### Putting it all together
+
+```
+[iprestricted whitelist="172.16.42.5-172.16.43.11" blacklist="172.16.43.1"]
+Lorem Ipsum.
+[/iprestricted]
+``` 
+
+_Lorem Ipsum_ will only be displayed if the client's IP falls between `172.16.42.5` and `172.16.43.11`, with the exception of `172.16.43.1`.
+
+
+#### Multiple IP restricted blocks
+
+Use multiple blocks to express mutually exclusive conditions for restricting content visibility.
+
+```
+[iprestricted whitelist="127.0.0.1"]
+Show this only on localhost.
+[/iprestricted]
+
+[iprestricted blacklist="127.0.0.1"]
+Hide this on localhost
+[/iprestricted]
+```
 
 ## Limitations
 
