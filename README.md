@@ -84,7 +84,7 @@ Hide this on localhost
 ```
 
 ## Limitations
-
+- if your web server has a reverse proxy that's caching pages in front of it, this will not work.
 - only works with IPv4 addresses.
 - server-side, the client IP must be accessible via the `REMOTE_ADDR`, `HTTP_X_FORWARDED_FOR` or `HTTP_CLIENT_IP` server variables. See this [StackOverflow post](http://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php) for a discussion of this approach.
 - only works [reliably](http://php.net/manual/en/function.ip2long.php#113080) on servers running 64-bit operating systems.
