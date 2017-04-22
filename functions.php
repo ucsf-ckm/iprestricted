@@ -103,7 +103,7 @@ function _iprestricted_matches_list( $client_ip, $list = '' ) {
  * @return bool|string The client's IP address, or FALSE if none could be determined.
  */
 function _iprestricted_get_client_ip() {
-	$vars      = array( 'REMOTE_ADDR', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP' );
+	$vars      = array( 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR' );
 	$client_ip = false;
 
 	foreach ( $vars as $var ) {
